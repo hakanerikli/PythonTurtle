@@ -19,11 +19,28 @@ def rotate_angle_left():
 def turtle_clear():
     turtle_instance.clear()
 
+penstate=True
+def tpup():
+    global penstate
+    if penstate:
+        turtle_instance.penup()
+        penstate^=True
+    else:
+        turtle_instance.pendown()
+        penstate^=True
+def treset():
+    turtle_instance.penup()
+    turtle_instance.home()
+    turtle_instance.pendown()
+
 drawing_board.listen()
 drawing_board.onkeypress(fun=turtle_forward, key="Up" )
 drawing_board.onkeypress(fun=rotate_angle_left, key="Left" )
 drawing_board.onkeypress(fun=rotate_angle_right, key="Right" )
-drawing_board.onkey(fun=turtle_clear, key="d" )
+drawing_board.onkeypress(fun=turtle_clear, key="d" )
+drawing_board.onkeypress(fun=tpup, key="space" )
+drawing_board.onkeypress(fun=treset, key="r" )
+
 
 
 turtle.mainloop()
