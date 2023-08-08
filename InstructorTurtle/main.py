@@ -11,7 +11,7 @@ screen.title("Instructor's Turtle")
 FONT = ("Verdana", 12, "normal")
 grid_size = 10
 score = 0
-timeg = 0
+game_over = True
 # turtle list
 turtle_list = []
 
@@ -20,7 +20,6 @@ myturtle.hideturtle()
 myturtle.penup()
 # myturtle.setpos(0, 200)
 # myturtle.write("Test", align="center", font=FONT)
-
 
 score_turtle = turtle.Turtle()
 countdown_turtle = turtle.Turtle()
@@ -51,8 +50,10 @@ def make_turtle(x, y):
     def handle_click(x, y):
         t.hideturtle()
         global score
+        global game_over
         score += 1
         print(x, y)
+
 
     t.onclick(handle_click)
     t.penup()
@@ -92,33 +93,56 @@ def show_turtles_randomly():
 
 def countdown(tg):
     hide_turtles()
+    global score, game_over
     while tg:
-        global score
-        global time
-        time_score()
         mins, secs = divmod(tg, 60)
         timer = '{:02d}'.format(secs)
         print(timer)
         show_turtles_randomly()
-        time.sleep(1)
+        time.sleep(0.5)
         tg -= 1
+        time_score(timer,score)
         hide_turtles()
+        game_over = False
+    else:
+        time_score("Time is over",score)
+        myturtle.write("Press Space to Start new game!", move=False, align="center", font=FONT)
+        game_over = True
 
 def time_score(time, score):
+    turtle.tracer(0)
     text = "Score: " + str(score)
     score_turtle.clear()
     score_turtle.write(text, move=False, align="center", font=FONT)
     countdown_turtle.clear()
     countdown_turtle.write(time, move=False, align="center", font=FONT)
+    turtle.tracer(1)
 
 
-tg = 15
-turtle.tracer(0)
-score_turtle_setup()
-countdown_turtle_setup()
-setup_turtles()
-hide_turtles()
-show_turtles_randomly()
-turtle.tracer(1)
-countdown(tg)
+def start_turtle():
+    myturtle.clear()
+    score_turtle.clear()
+    countdown_turtle.clear()
+    global score, game_over
+    tg = 10
+    turtle.tracer(0)
+    score_turtle_setup()
+    countdown_turtle_setup()
+    setup_turtles()
+    hide_turtles()
+    show_turtles_randomly()
+    turtle.tracer(1)
+    countdown(tg)
+    score = 0
+    game_over = False
+
+
+
+
+# start_turtle()
+if game_over == True:
+    turtle.onkeypress(start_turtle, "space")
+myturtle.write("Press Space to Start new game!", move=False, align="center", font=FONT)
+turtle.listen()
+
 turtle.mainloop()
