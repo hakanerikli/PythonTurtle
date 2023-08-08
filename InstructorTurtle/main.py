@@ -1,5 +1,6 @@
 import math
 import turtle
+from random import random
 
 myturtle = turtle.Turtle()
 screen = turtle.Screen()
@@ -10,6 +11,8 @@ screen.title("Instructor's Turtle")
 FONT = ("Verdana", 12, "normal")
 grid_size = 10
 
+# turtle list
+turtle_list = []
 
 # MyTurtle
 myturtle.hideturtle()
@@ -44,17 +47,18 @@ def make_turtle(x, y):
         t.penup()
         t.color("green")
         t.shape("turtle")
-        t.shapesize(1,1)
+        t.shapesize(2,2)
         t.goto(x*grid_size,y*grid_size)
+        turtle_list.append(t)
 
 x_coordinates = [-20, -10, 0, 10,20]
 y_coordinates = [20,10,0,-10]
-def setup_turtles:
+def setup_turtles():
         for x in x_coordinates:
-        for y in y_coordinates:
-                make_turtle(x,y)
+                for y in y_coordinates:
+                        make_turtle(x,y)
 
-            
+
 # for i in range(20):
 #         # turtle.hideturtle()
 #         sc_y=turtle.window_height()
@@ -63,9 +67,18 @@ def setup_turtles:
 #         sc_x_start= (sc_x/2-sc_x/10) - (sc_x*0.2)*(i%5)
 #         make_turtle(sc_x_start, sc_y_start)
 
+def hide_turtles():
+        for t in turtle_list:
+                t.hideturtle()
+
+turtle.tracer(0)
 score_turtle_setup()
 countdown_turtle_setup()
+setup_turtles()
+hide_turtles()
+turtle.tracer(1)
 
+random
 
 
 turtle.mainloop()
