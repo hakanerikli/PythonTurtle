@@ -48,11 +48,17 @@ def make_turtle(x, y):
 
     # t.hideturtle()
     def handle_click(x, y):
-        t.hideturtle()
+        # t.hideturtle()
+        t.color("red")
         global score
         global game_over
         score += 1
         print(x, y)
+        turtle.tracer(0)
+        score_turtle.clear()
+        score_turtle.write("Score: {}".format(score), move=False, align="center",font=FONT)
+        turtle.tracer(1)
+        # t.hideturtle()
 
 
     t.onclick(handle_click)
@@ -84,6 +90,7 @@ def setup_turtles():
 
 def hide_turtles():
     for t in turtle_list:
+        t.color("green")
         t.hideturtle()
 
 
